@@ -11,9 +11,11 @@ chrome.storage.sync.get(['mode'], ({mode}) => {
     if (mode) { // turn on
         modeBtn.innerText = chrome.i18n.getMessage('deactivate')
         modeBtn.classList.add('active')
+        chrome.action.setBadgeText({text: 'on'})
     } else { // turn off
         modeBtn.innerText = chrome.i18n.getMessage('activate')
         modeBtn.classList.remove('active')
+        chrome.action.setBadgeText({text: 'off'})
     }
 })
 
@@ -26,9 +28,11 @@ modeBtn.addEventListener("click", () => {
                 if (!mode) { // turn off
                     modeBtn.innerText = chrome.i18n.getMessage('deactivate')
                     modeBtn.classList.add('active')
+                    chrome.action.setBadgeText({text: 'on'})
                 } else { // turn on
                     modeBtn.innerText = chrome.i18n.getMessage('activate')
                     modeBtn.classList.remove('active')
+                    chrome.action.setBadgeText({text: 'off'})
                 }
 
                 chrome.scripting.executeScript({

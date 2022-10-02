@@ -2,6 +2,7 @@ let mode = false,
     timeOut
 
 chrome.runtime.onInstalled.addListener(() => {
+    chrome.action.setBadgeText({text: 'off'})
     chrome.storage.sync.set({mode})
     console.group('Background: onInstalled action')
     console.log(`Default mode set to %c${mode}`, `color: green`)
