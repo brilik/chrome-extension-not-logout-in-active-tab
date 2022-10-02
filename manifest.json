@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Not logout",
+  "version": "1.0.0",
+  "description": "Не разлогінює з системи поки вімкнутий",
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "/assets/img/get_started16.png",
+      "32": "/assets/img/get_started32.png",
+      "48": "/assets/img/get_started48.png",
+      "128": "/assets/img/get_started128.png"
+    }
+  },
+  "default_locale": "en",
+  "icons": {
+    "16": "/assets/img/get_started16.png",
+    "32": "/assets/img/get_started32.png",
+    "48": "/assets/img/get_started48.png",
+    "128": "/assets/img/get_started128.png"
+  },
+
+  "author": "Bryl Vitalii",
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "assets/js/background.js"
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
+
+
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "MacCtrl+Shift+F"
+      },
+      "description": "Opens hello.html"
+    }
+  }
+}

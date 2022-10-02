@@ -1,0 +1,18 @@
+{
+  "periodicity": {
+    "message": "Періодичність",
+    "description": ""
+  },
+  "activate": {
+    "message": "Увімкнути",
+    "description": ""
+  },
+  "deactivate": {
+    "message": "Вимкнути",
+    "description": ""
+  },
+  "minute": {
+    "message": "хв",
+    "description": ""
+  }
+}

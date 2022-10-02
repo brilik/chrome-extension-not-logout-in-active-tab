@@ -1,0 +1,31 @@
+*, body {
+    font-family: emoji;
+    font-size: 100%;
+}
+
+button {
+    min-height: 50px;
+    min-width: 70px;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+}
+
+button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 3px 1px darkblue;
+}
+
+button.active {
+    background: dodgerblue;
+    color: aliceblue;
+}
+
+input {
+    width: 32px;
+    padding: 5px 7px;
+}
+
+label > input {
+    margin-top: 3px;
+}

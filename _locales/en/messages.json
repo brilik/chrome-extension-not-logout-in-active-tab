@@ -1,0 +1,18 @@
+{
+  "periodicity": {
+    "message": "Periodicity",
+    "description": ""
+  },
+  "activate": {
+    "message": "Activate",
+    "description": ""
+  },
+  "deactivate": {
+    "message": "Deactivate",
+    "description": ""
+  },
+  "minute": {
+    "message": "min",
+    "description": ""
+  }
+}
