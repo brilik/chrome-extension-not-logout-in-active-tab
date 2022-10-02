@@ -2,8 +2,17 @@
 const modeBtn = document.getElementById('changeMode')
 const intervalLabel = document.getElementById('periodsLabel')
 const periodsHelperText = document.getElementById('periodsHelperText')
-const periodsTime = document.getElementById('periodsTime')
-
+const displayCounterRequests = document.getElementById('counterRequests')
+const debug = async (...e) => {
+    let [tab] = await chrome.tabs.query({active: true, currentWindow: true})
+    await chrome.scripting.executeScript({
+        target: {tabId: tab.id},
+        func: (...f) => {
+            console.log(...f)
+        },
+        args: [...e]
+    })
+}
 intervalLabel.textContent = chrome.i18n.getMessage('periodicity')
 periodsHelperText.textContent = chrome.i18n.getMessage('minute')
 
@@ -19,17 +28,29 @@ chrome.storage.sync.get(['mode'], ({mode}) => {
     }
 })
 
+chrome.storage.sync.get('counterRequests', (response) => {
+    displayCounterRequests.innerText = response.counterRequests.toString()
+})
+setInterval(() => {
+    chrome.storage.sync.get('counterRequests', (response) => {
+        displayCounterRequests.innerText = response.counterRequests.toString()
+    })
+}, 500)
+
 modeBtn.addEventListener("click", () => {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        let intervalTime = periodsTime.value ? periodsTime.value * 60 * 1000 : 5 * 60 * 1000
 
         chrome.storage.sync.get(['mode'], ({mode}) => {
             chrome.storage.sync.set({mode: !mode}).then(() => {
-                if (!mode) { // turn off
+                const periodsTime = document.getElementById('periodsTime')
+                const intervalTime = periodsTime.value ? periodsTime.value * 1000 : 5 * 1000
+
+                if (!mode) { // turn on
                     modeBtn.innerText = chrome.i18n.getMessage('deactivate')
                     modeBtn.classList.add('active')
                     chrome.action.setBadgeText({text: 'on'})
-                } else { // turn on
+                    chrome.storage.sync.set({counterRequests: 0})
+                } else { // turn off
                     modeBtn.innerText = chrome.i18n.getMessage('activate')
                     modeBtn.classList.remove('active')
                     chrome.action.setBadgeText({text: 'off'})
@@ -39,14 +60,15 @@ modeBtn.addEventListener("click", () => {
                     target: {tabId: tabs[0].id},
                     func: (data) => {
                         chrome.runtime.sendMessage(data, (response) => {
-                            console.group('NotLogoutInActiveTab')
-                            console.log(response)
+                            console.group('%cNotLogoutInActiveTab', `color: dodgerblue`)
+                            if (response)
+                                console.log(response)
                             console.groupEnd()
                         })
                     },
                     args: [{
                         mode: !mode,
-                        tab: tabs[0].id,
+                        tabID: tabs[0].id,
                         intervalTime: intervalTime,
                         locationHref: window.location.href,
                     }],
