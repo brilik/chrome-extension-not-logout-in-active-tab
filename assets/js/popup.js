@@ -43,7 +43,7 @@ modeBtn.addEventListener("click", () => {
         chrome.storage.sync.get(['mode'], ({mode}) => {
             chrome.storage.sync.set({mode: !mode}).then(() => {
                 const periodsTime = document.getElementById('periodsTime')
-                const intervalTime = periodsTime.value ? periodsTime.value * 1000 : 5 * 1000
+                const intervalTime = periodsTime.value ? periodsTime.value * 60 * 1000 : 5 * 60 * 1000
                 const url = tabs[0].url
 
                 if (!mode) { // turn on
