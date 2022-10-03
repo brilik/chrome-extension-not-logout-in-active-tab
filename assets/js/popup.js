@@ -44,6 +44,7 @@ modeBtn.addEventListener("click", () => {
             chrome.storage.sync.set({mode: !mode}).then(() => {
                 const periodsTime = document.getElementById('periodsTime')
                 const intervalTime = periodsTime.value ? periodsTime.value * 1000 : 5 * 1000
+                const url = tabs[0].url
 
                 if (!mode) { // turn on
                     modeBtn.innerText = chrome.i18n.getMessage('deactivate')
@@ -70,7 +71,7 @@ modeBtn.addEventListener("click", () => {
                         mode: !mode,
                         tabID: tabs[0].id,
                         intervalTime: intervalTime,
-                        locationHref: window.location.href,
+                        locationHref: url,
                     }],
                 })
             })
